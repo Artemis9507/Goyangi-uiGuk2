@@ -1,0 +1,71 @@
+using UnityEngine;
+
+public class InputManager : MonoBehaviour
+{
+    PlayerControler playerControler;
+    AnimatorManager animatorManager;
+    
+    public Vector2 moveInput;
+    public Vector2 cameraInput;
+
+    public float cameraInputX;
+    public float cameraInputY;
+        
+    public float moveAmount;
+    public float vertical;
+    public float horizontal;
+    
+    public bool sprintInput;
+    public bool jumpInput;
+    public bool crouchInput;
+    
+
+    private void Awake()
+    {
+        animatorManager = GetComponent<AnimatorManager>();
+    }
+    private void OnEnable()
+    {
+        if (playerControler == null)
+        {
+            playerControler = new PlayerControler();
+            
+            playerControler.Player.Move.performed += i => moveInput = i.ReadValue<Vector2>();
+            
+            playerControler.Player.Look.performed += i => cameraInput = i.ReadValue<Vector2>();
+            
+            playerControler.Player.Sprint.performed += i => sprintInput = true;
+            playerControler.Player.Sprint.canceled += i => sprintInput = false;
+            
+            playerControler.Player.Jump.performed += i => jumpInput = true;
+            playerControler.Player.Jump.canceled += i => jumpInput = false;
+            
+            playerControler.Player.Crouch.performed += i => crouchInput = !crouchInput;
+        }
+        
+        playerControler.Enable();
+    }
+
+    private void OnDisable()
+    {
+       playerControler.Disable(); 
+    }
+
+    public void HandleAllInputs()
+    {
+        HandleMovementInput();
+    }
+
+    private void HandleMovementInput()
+    {
+        vertical = moveInput.y;
+        horizontal = moveInput.x;
+        
+        cameraInputX = cameraInput.x;
+        cameraInputY = cameraInput.y;
+        
+        moveAmount = Mathf.Clamp01(Mathf.Abs(vertical) + Mathf.Abs(horizontal));
+        animatorManager.UpdateAnimatorValues(0, moveAmount);
+    }
+}
+
