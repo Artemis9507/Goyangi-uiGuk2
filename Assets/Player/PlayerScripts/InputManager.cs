@@ -4,6 +4,7 @@ public class InputManager : MonoBehaviour
 {
     PlayerControler playerControler;
     AnimatorManager animatorManager;
+    PauseMenu pauseMenu;
     
     public Vector2 moveInput;
     public Vector2 cameraInput;
@@ -19,10 +20,14 @@ public class InputManager : MonoBehaviour
     public bool jumpInput;
     public bool crouchInput;
     
+    public bool pauseInput;
+    
 
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
+        
     }
     private void OnEnable()
     {
@@ -41,6 +46,9 @@ public class InputManager : MonoBehaviour
             playerControler.Player.Jump.canceled += i => jumpInput = false;
             
             playerControler.Player.Crouch.performed += i => crouchInput = !crouchInput;
+            
+            playerControler.Player.Pause.performed += i => pauseInput = true;
+            playerControler.Player.Pause.canceled += i => pauseInput = false;
         }
         
         playerControler.Enable();
@@ -48,12 +56,13 @@ public class InputManager : MonoBehaviour
 
     private void OnDisable()
     {
-       playerControler.Disable(); 
+        playerControler?.Disable();
     }
 
     public void HandleAllInputs()
     {
         HandleMovementInput();
+        HandlePauseInput();
     }
 
     private void HandleMovementInput()
@@ -66,6 +75,16 @@ public class InputManager : MonoBehaviour
         
         moveAmount = Mathf.Clamp01(Mathf.Abs(vertical) + Mathf.Abs(horizontal));
         animatorManager.UpdateAnimatorValues(0, moveAmount);
+    }
+    
+    private void HandlePauseInput()
+    {
+        if (pauseInput)
+        {
+            if (pauseMenu == null) pauseMenu = FindObjectOfType<PauseMenu>();
+            pauseMenu?.TogglePause();
+            pauseInput = false;
+        }
     }
 }
 

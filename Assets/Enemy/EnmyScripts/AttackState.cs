@@ -22,7 +22,6 @@ public class AttackState : State
         agent.isStopped = true;
         
         lastAttackTime = Time.time - attackCooldown;
-        Debug.Log("Entering Attack State");
         
     }
     public override void Update()
@@ -55,6 +54,13 @@ public class AttackState : State
     private void PerformAttack()
     {
         Debug.Log("Enemy Atacks!");
+        
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(20f);
+        }
     }
     
     public override void Exit()

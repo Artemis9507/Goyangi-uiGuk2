@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Sceens/Menu.unity
     guid: 0730110c34392204995c8094d872a24f
   - enabled: 1
-    path: Assets/Sceens/Demo_Sojubang.unity
+    path: Assets/Sceens/LV1_Sojubang.unity
     guid: e4cc9e8374121564a8e6e1526bac8d63
   - enabled: 1
-    path: Assets/Sceens/Demo_Geunjeongjeon.unity
+    path: Assets/Sceens/LV2_Geunjeongjeon.unity
     guid: 24ee0c8117440c1479be984a3500fb32
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

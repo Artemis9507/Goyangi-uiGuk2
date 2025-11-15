@@ -23,7 +23,6 @@ public class ChaseState : State
     }
     public override void Update()
     {
-        Debug.Log(enemy.CanSeePlayer());
         if (player == null) return;
         
         if (!enemy.CanSeePlayer())

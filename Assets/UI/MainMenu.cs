@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -5,33 +6,44 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField]
-    Button button1;
-    [SerializeField]
-    Button button2;
-    [SerializeField]
-    Button button3;
-
+    [Header("UI Panels")]
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject settingsPanel;
 
-    public void HideButtons()
+
+    [Header("Buttons")]
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button quitButton;
+    [SerializeField] private Animator[] buttonAnimators;
+    
+    public int firstLevelBuildIndex = 1;
+
+    public void Awake()
     {
-        button1.gameObject.SetActive(false);
-        button2.gameObject.SetActive(false);
+        if (menuPanel) menuPanel.SetActive(true);
+        if (settingsPanel) settingsPanel.SetActive(false);
     }
+
+   /* public void HideButtons()
+    {
+        quitButton.gameObject.SetActive(false);
+        button2.gameObject.SetActive(false);
+    }*/
+    
     public void PlayGame()
     {
         
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(firstLevelBuildIndex);
         
     }
 
     public void Settings()
     {
-        menuPanel.SetActive(false);
-        settingsPanel.SetActive(true);
-        button3.animator.SetTrigger("Normal");
+        if (menuPanel) menuPanel.SetActive(false);
+        if (settingsPanel) settingsPanel.SetActive(true);
+        
+        ResetButtons();
     }
 
     public void QuitGame()
@@ -41,9 +53,21 @@ public class MainMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-        button3.animator.SetTrigger("Normal");
-        menuPanel.SetActive(true);
-        settingsPanel.SetActive(false);
+        if (settingsPanel) settingsPanel.SetActive(false);
+        if (menuPanel) menuPanel.SetActive(true);
         
+        ResetButtons();
+        
+    }
+
+    private void ResetButtons()
+    {
+        foreach (Animator anim in buttonAnimators)
+        {
+            if (anim!=null && anim.gameObject.activeInHierarchy) 
+            {
+                anim.Play("Normal");
+            }
+        }
     }
 }
