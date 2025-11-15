@@ -7,7 +7,6 @@ public class ChaseState : State
     private Transform player;
     private Enemy enemy;
     private float attackRange = 2f;
-    private float giveUpRange = 15f;
     
     public ChaseState(GameObject owner, NavMeshAgent agent, Transform player, Enemy enemy) : base(owner)
     {
