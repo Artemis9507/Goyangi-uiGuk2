@@ -4,6 +4,8 @@ using UnityEngine.AI;
 public class StateMachine
 {
    public State currentState;
+   
+   private bool isStopped = false;
 
    public void ChangeState(State newState)
    {
@@ -17,6 +19,12 @@ public class StateMachine
 
    public void Update()
    {
+      if (isStopped) return;
       currentState?.Update();
+   }
+   
+   public void Stop()
+   {
+      isStopped = true;
    }
 }

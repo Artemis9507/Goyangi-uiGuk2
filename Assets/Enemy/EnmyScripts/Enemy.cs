@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 { 
     private StateMachine stateMachine;
     private NavMeshAgent agent;
+    public EnemyHealth health;
     
     public Transform[] patrolPoints;
     
@@ -21,13 +22,19 @@ public class Enemy : MonoBehaviour
     public float patrolSpeed = 2f;
     public float chaseSpeed = 4f;
     
+    [Header("Stats")]
+    public float damage = 10;
     
+    [Header("Attack Settings")]
+    public EnemyAttack enemyAttack;
     
     
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         stateMachine = new StateMachine();
+        enemyAttack = GetComponent<EnemyAttack>();
+        health = GetComponent<EnemyHealth>();
     }
 
     public void Start()
@@ -37,6 +44,8 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
+        if (health.isDead) return;
+        
         stateMachine.Update();
 
         if (player != null)
@@ -78,5 +87,11 @@ public class Enemy : MonoBehaviour
         }
 
         return false;
+    }
+    
+    public void StopAI()
+    {
+            stateMachine.Stop();
+        
     }
 }

@@ -30,6 +30,8 @@ public class PatrolState : State
 
     public override void Update()
     {
+        if (enemy.health.isDead) return;
+        
         if (patrolPoints.Length == 0) return;
         
         if (!agent.pathPending && agent.remainingDistance < 0.5f)

@@ -36,4 +36,10 @@ public class AnimatorManager : MonoBehaviour
     {
         animator.SetTrigger("IsJumping");
     }
+
+    public void SetAttacking()
+    {
+        animator.SetTrigger("IsAttacking");
+    }
+    
 }

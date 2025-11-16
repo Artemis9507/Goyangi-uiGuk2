@@ -26,6 +26,7 @@ public class AttackState : State
     }
     public override void Update()
     {
+        if (enemy.health.isDead) return;
         if (player == null) return;
         
         float distance = Vector3.Distance(owner.transform.position, player.position);
@@ -53,13 +54,11 @@ public class AttackState : State
 
     private void PerformAttack()
     {
-        Debug.Log("Enemy Atacks!");
-        
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
 
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(20f);
+            enemy.enemyAttack.PreformAttack();
         }
     }
     

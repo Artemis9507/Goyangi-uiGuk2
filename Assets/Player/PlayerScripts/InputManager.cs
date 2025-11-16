@@ -1,10 +1,12 @@
 using UnityEngine;
+using System.Collections;
 
 public class InputManager : MonoBehaviour
 {
     PlayerControler playerControler;
     AnimatorManager animatorManager;
     PauseMenu pauseMenu;
+    private PlayerAttack playerAttack;
     
     public Vector2 moveInput;
     public Vector2 cameraInput;
@@ -19,6 +21,7 @@ public class InputManager : MonoBehaviour
     public bool sprintInput;
     public bool jumpInput;
     public bool crouchInput;
+    public bool attackInput;
     
     public bool pauseInput;
     
@@ -26,6 +29,7 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
+        playerAttack = GetComponent<PlayerAttack>();
         pauseMenu = FindObjectOfType<PauseMenu>();
         
     }
@@ -45,6 +49,9 @@ public class InputManager : MonoBehaviour
             playerControler.Player.Jump.performed += i => jumpInput = true;
             playerControler.Player.Jump.canceled += i => jumpInput = false;
             
+            playerControler.Player.Attack.performed += i => attackInput = true;
+            playerControler.Player.Attack.canceled  += i => attackInput = false;
+            
             playerControler.Player.Crouch.performed += i => crouchInput = !crouchInput;
             
             playerControler.Player.Pause.performed += i => pauseInput = true;
@@ -62,6 +69,7 @@ public class InputManager : MonoBehaviour
     public void HandleAllInputs()
     {
         HandleMovementInput();
+        HandleAttackInput();
         HandlePauseInput();
     }
 
@@ -77,6 +85,17 @@ public class InputManager : MonoBehaviour
         animatorManager.UpdateAnimatorValues(0, moveAmount);
     }
     
+    public void HandleAttackInput()
+    {
+        if (attackInput)
+        {
+            animatorManager.SetAttacking();
+            
+            StartCoroutine(Delay(0.25f));
+            attackInput = false; 
+        }
+    }
+    
     private void HandlePauseInput()
     {
         if (pauseInput)
@@ -85,6 +104,12 @@ public class InputManager : MonoBehaviour
             pauseMenu?.TogglePause();
             pauseInput = false;
         }
+    }
+    
+    private IEnumerator Delay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        playerAttack.PreformeAttack();
     }
 }
 

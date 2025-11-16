@@ -23,6 +23,8 @@ public class ChaseState : State
     }
     public override void Update()
     {
+        if (enemy.health.isDead) return;
+        
         if (player == null) return;
         
         if (!enemy.CanSeePlayer())
