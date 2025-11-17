@@ -1,41 +1,62 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 public class Enemy : MonoBehaviour
 { 
-    private StateMachine stateMachine;
-    private NavMeshAgent agent;
-    public EnemyHealth health;
+    public StateMachine stateMachine;
     
+    protected NavMeshAgent agent;
+    public NavMeshAgent Agent => agent;
+
+    public EnemyHealth health;
+    public EnemyHealth Health => health;
+
+    public Animator animator;
+    public Animator Animator => animator;
+
+    public EnemyAttack enemyAttack;
+
+    public Transform player;
+    public Transform Player => player;
+
     public Transform[] patrolPoints;
     
+    public int SpeedTrigger;
+    public int DieTrigger;
+    public int AttackTrigger;
+
     [Header("Vision Settings")]
     public float visionDistance = 10f;
     public float visionAngle = 120f;
     public LayerMask obstacleMask;
-    public Transform player; 
-    
+
     [Header("Animation Settings")]
-    public Animator animator;
     public float patrolSpeed = 2f;
     public float chaseSpeed = 4f;
-    
+
     [Header("Stats")]
-    public float damage = 10;
-    
-    [Header("Attack Settings")]
-    public EnemyAttack enemyAttack;
-    
-    
-    private void Awake()
+    public float damage = 10f;
+
+    protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        stateMachine = new StateMachine();
-        enemyAttack = GetComponent<EnemyAttack>();
+        animator = GetComponent<Animator>();
+        enemyAttack = GetComponentInChildren<EnemyAttack>();
         health = GetComponent<EnemyHealth>();
+        
+        SpeedTrigger = Animator.StringToHash("Speed");
+        AttackTrigger = Animator.StringToHash("AttackTrigger");
+        DieTrigger = Animator.StringToHash("Die");
+        
+        
+
+        stateMachine = new StateMachine();
+
+        OnAwakeCompleted();
     }
+    
+    protected virtual void OnAwakeCompleted() { }
 
     public void Start()
     {
@@ -44,7 +65,7 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
-        if (health.isDead) return;
+        if (health.IsDead) return;
         
         stateMachine.Update();
 

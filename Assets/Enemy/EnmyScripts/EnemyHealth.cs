@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -7,7 +6,7 @@ public class EnemyHealth : MonoBehaviour
     public float maxHealth = 50f;
     private float currentHealth;
     
-    public bool isDead { get; private set; }
+    public bool IsDead { get; private set; }
     
     private Animator anim;
     private Enemy enemy;
@@ -23,7 +22,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         
-        if (isDead) return;
+        if (IsDead) return;
         
         currentHealth -= damage;
         
@@ -36,7 +35,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        isDead = true;
+        IsDead = true;
 
         enemy.StopAI();
 
@@ -47,7 +46,7 @@ public class EnemyHealth : MonoBehaviour
             agent.ResetPath();
         }
 
-        anim.SetTrigger("Die");
+        anim.SetTrigger(enemy.DieTrigger);
 
         Destroy(gameObject, 5f);
     }

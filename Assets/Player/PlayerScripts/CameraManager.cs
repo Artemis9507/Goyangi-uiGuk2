@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraManager : MonoBehaviour
 {
@@ -29,9 +28,16 @@ public class CameraManager : MonoBehaviour
 
     private void Awake()
     {
-        inputManager = FindObjectOfType<InputManager>();
-        targetTransform = FindObjectOfType<PlayerManager>().transform;
-        cameraTransform = Camera.main.transform;
+        inputManager = FindFirstObjectByType<InputManager>();
+        targetTransform = FindFirstObjectByType<PlayerManager>().transform;
+        if (Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
+        }
+        else
+        {
+            Debug.LogWarning("No camera found");
+        }
         defaultPosition = cameraTransform.localPosition.z;
         defaultPositionY = cameraTransform.localPosition.y;
         

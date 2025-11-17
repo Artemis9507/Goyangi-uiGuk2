@@ -26,7 +26,7 @@ public class AttackState : State
     }
     public override void Update()
     {
-        if (enemy.health.isDead) return;
+        if (enemy.health.IsDead) return;
         if (player == null) return;
         
         float distance = Vector3.Distance(owner.transform.position, player.position);
@@ -48,7 +48,7 @@ public class AttackState : State
         {
             lastAttackTime = Time.time;
             PerformAttack();
-            enemy.animator.SetTrigger("AttackTrigger");
+            enemy.animator.SetTrigger(enemy.AttackTrigger);
         }
     }
 

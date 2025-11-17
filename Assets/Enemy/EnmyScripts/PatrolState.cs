@@ -8,6 +8,7 @@ public class PatrolState : State
     private int currentPointIndex = 0;
     private Enemy enemy;
     
+    
     public PatrolState(GameObject owner, NavMeshAgent agent, Transform[] patrolPoints, Enemy enemy) : base(owner)
     {
         this.agent = agent;
@@ -24,13 +25,13 @@ public class PatrolState : State
         
         agent.isStopped = false;
         agent.speed = enemy.patrolSpeed;
-        enemy.animator.SetFloat("Speed", agent.speed);
+        enemy.animator.SetFloat(enemy.SpeedTrigger, agent.speed);
         agent.SetDestination(patrolPoints[currentPointIndex].position);
     }
 
     public override void Update()
     {
-        if (enemy.health.isDead) return;
+        if (enemy.health.IsDead) return;
         
         if (patrolPoints.Length == 0) return;
         
@@ -40,7 +41,7 @@ public class PatrolState : State
             agent.SetDestination(patrolPoints[currentPointIndex].position);
         }
         
-        enemy.animator.SetFloat("Speed", agent.speed);
+        enemy.animator.SetFloat(enemy.SpeedTrigger, agent.speed);
     }
     public override void Exit()
     {

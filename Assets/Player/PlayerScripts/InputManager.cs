@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
     {
         animatorManager = GetComponent<AnimatorManager>();
         playerAttack = GetComponent<PlayerAttack>();
-        pauseMenu = FindObjectOfType<PauseMenu>();
+        pauseMenu = FindFirstObjectByType<PauseMenu>();
         
     }
     private void OnEnable()
@@ -100,7 +100,7 @@ public class InputManager : MonoBehaviour
     {
         if (pauseInput)
         {
-            if (pauseMenu == null) pauseMenu = FindObjectOfType<PauseMenu>();
+            if (pauseMenu == null) pauseMenu = FindFirstObjectByType<PauseMenu>();
             pauseMenu?.TogglePause();
             pauseInput = false;
         }

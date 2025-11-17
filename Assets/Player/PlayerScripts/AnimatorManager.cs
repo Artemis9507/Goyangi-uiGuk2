@@ -7,6 +7,7 @@ public class AnimatorManager : MonoBehaviour
     int vertical;
     int isJumping;
     int isCrouching;
+    int isAttacking;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class AnimatorManager : MonoBehaviour
         vertical = Animator.StringToHash("Vertical");
         isJumping = Animator.StringToHash("IsJumping");
         isCrouching = Animator.StringToHash("IsCrouching");
+        isAttacking = Animator.StringToHash("IsAttacking");
     }
     
     public void UpdateAnimatorValues(float horizontalM, float verticalM)
@@ -29,17 +31,17 @@ public class AnimatorManager : MonoBehaviour
     }
     public void SetCrouching(bool state)
     {
-        animator.SetBool("IsCrouching", state);
+        animator.SetBool(isCrouching, state);
     }
 
     public void SetJumping()
     {
-        animator.SetTrigger("IsJumping");
+        animator.SetTrigger(isJumping);
     }
 
     public void SetAttacking()
     {
-        animator.SetTrigger("IsAttacking");
+        animator.SetTrigger(isAttacking);
     }
     
 }

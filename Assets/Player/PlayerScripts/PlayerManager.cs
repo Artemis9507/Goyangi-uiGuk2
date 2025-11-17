@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -10,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         inputManager = GetComponent<InputManager>();
-        cameraManager = FindObjectOfType<CameraManager>();
+        cameraManager = FindFirstObjectByType<CameraManager>();
         playerMovement = GetComponent<PlayerMovement>();
         
     }

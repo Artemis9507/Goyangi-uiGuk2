@@ -19,11 +19,11 @@ public class ChaseState : State
     {
         agent.isStopped = false;
         agent.speed = enemy.chaseSpeed;
-        enemy.animator.SetFloat("Speed", agent.speed);
+        enemy.animator.SetFloat(enemy.SpeedTrigger, agent.speed);
     }
     public override void Update()
     {
-        if (enemy.health.isDead) return;
+        if (enemy.health.IsDead) return;
         
         if (player == null) return;
         
@@ -42,7 +42,7 @@ public class ChaseState : State
             enemy.ChangeState(new AttackState(owner, agent, player, enemy));
         }
         
-        enemy.animator.SetFloat("Speed", agent.speed);
+        enemy.animator.SetFloat(enemy.SpeedTrigger, agent.speed);
     }
 
     public override void Exit()
