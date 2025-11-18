@@ -46,7 +46,7 @@ public class EnemyHealth : MonoBehaviour
             agent.ResetPath();
         }
 
-        anim.SetTrigger(enemy.DieTrigger);
+        anim.SetTrigger("Die");
 
         Destroy(gameObject, 5f);
     }

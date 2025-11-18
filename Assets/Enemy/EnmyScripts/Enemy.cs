@@ -21,10 +21,6 @@ public class Enemy : MonoBehaviour
     public Transform Player => player;
 
     public Transform[] patrolPoints;
-    
-    public int SpeedTrigger;
-    public int DieTrigger;
-    public int AttackTrigger;
 
     [Header("Vision Settings")]
     public float visionDistance = 10f;
@@ -44,12 +40,6 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         enemyAttack = GetComponentInChildren<EnemyAttack>();
         health = GetComponent<EnemyHealth>();
-        
-        SpeedTrigger = Animator.StringToHash("Speed");
-        AttackTrigger = Animator.StringToHash("AttackTrigger");
-        DieTrigger = Animator.StringToHash("Die");
-        
-        
 
         stateMachine = new StateMachine();
 

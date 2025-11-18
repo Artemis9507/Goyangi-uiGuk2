@@ -19,7 +19,7 @@ public class ChaseState : State
     {
         agent.isStopped = false;
         agent.speed = enemy.chaseSpeed;
-        enemy.animator.SetFloat(enemy.SpeedTrigger, agent.speed);
+        enemy.animator.SetFloat("Speed", agent.speed);
     }
     public override void Update()
     {
@@ -42,7 +42,7 @@ public class ChaseState : State
             enemy.ChangeState(new AttackState(owner, agent, player, enemy));
         }
         
-        enemy.animator.SetFloat(enemy.SpeedTrigger, agent.speed);
+        enemy.animator.SetFloat("Speed", agent.speed);
     }
 
     public override void Exit()

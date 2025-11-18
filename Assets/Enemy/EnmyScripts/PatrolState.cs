@@ -25,7 +25,7 @@ public class PatrolState : State
         
         agent.isStopped = false;
         agent.speed = enemy.patrolSpeed;
-        enemy.animator.SetFloat(enemy.SpeedTrigger, agent.speed);
+        enemy.animator.SetFloat("Speed", agent.speed);
         agent.SetDestination(patrolPoints[currentPointIndex].position);
     }
 
@@ -41,7 +41,7 @@ public class PatrolState : State
             agent.SetDestination(patrolPoints[currentPointIndex].position);
         }
         
-        enemy.animator.SetFloat(enemy.SpeedTrigger, agent.speed);
+        enemy.animator.SetFloat("Speed", agent.speed);
     }
     public override void Exit()
     {

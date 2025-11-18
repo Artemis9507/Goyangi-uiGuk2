@@ -18,14 +18,21 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Animator[] buttonAnimators;
     
     public int firstLevelBuildIndex = 1;
-
+    
+    public AudioClip musicClip;
+    
     public void Awake()
     {
         if (menuPanel) menuPanel.SetActive(true);
         if (settingsPanel) settingsPanel.SetActive(false);
     }
+    
+    public void Start()
+    {
+        SoundManager.instance.PlayMusic(musicClip);
+    }
 
-   /* public void HideButtons()
+    /* public void HideButtons()
     {
         quitButton.gameObject.SetActive(false);
         button2.gameObject.SetActive(false);

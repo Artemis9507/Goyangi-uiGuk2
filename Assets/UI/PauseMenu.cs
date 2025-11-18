@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (pausePanel == null)
         {
-            Debug.LogWarning("PauseMenu: pausePanel not set in inspector.");
+            // Debug.LogWarning("PauseMenu: pausePanel not set in inspector.");
         }
     }
 
@@ -25,8 +25,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-// Only pause during playable scenes (optional):
-        if (SceneManager.GetActiveScene().buildIndex == 0) return; // don't pause main menu
+
+        if (SceneManager.GetActiveScene().buildIndex == 0) return;
 
 
         Time.timeScale = 0f;
@@ -36,9 +36,7 @@ public class PauseMenu : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
-
-// Make sure EventSystem exists and the panel is interactable (check in inspector)
+        
     }
 
 
@@ -56,7 +54,6 @@ public class PauseMenu : MonoBehaviour
 
     public void ToMainMenu(int mainMenuBuildIndex = 0)
     {
-// Restore time scale and cursor before loading menu
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

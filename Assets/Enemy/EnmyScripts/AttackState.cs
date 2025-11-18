@@ -48,7 +48,7 @@ public class AttackState : State
         {
             lastAttackTime = Time.time;
             PerformAttack();
-            enemy.animator.SetTrigger(enemy.AttackTrigger);
+            enemy.animator.SetTrigger("AttackTrigger");
         }
     }
 

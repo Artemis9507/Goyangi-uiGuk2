@@ -6,7 +6,7 @@ public class FixBoxColliders : MonoBehaviour
     [MenuItem("Tools/Fix Negative Scale BoxColliders")]
     static void FixColliders()
     {
-        BoxCollider[] colliders = FindObjectsOfType<BoxCollider>();
+        BoxCollider[] colliders = FindObjectsByType<BoxCollider>(FindObjectsSortMode.None);
         foreach (BoxCollider bc in colliders)
         {
             Transform t = bc.transform;
