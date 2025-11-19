@@ -5,11 +5,15 @@ public class EnemyHealth : MonoBehaviour
     [Header("Stats")]
     public float maxHealth = 50f;
     private float currentHealth;
+    public bool isBoss = false;
+    
+    public GameObject win;
     
     public bool IsDead { get; private set; }
     
     private Animator anim;
     private Enemy enemy;
+    
 
     private void Awake()
     {
@@ -17,6 +21,17 @@ public class EnemyHealth : MonoBehaviour
 
         anim = GetComponent<Animator>();
         enemy = GetComponent<Enemy>();
+        
+    }
+
+    private void Start()
+    {
+        if (isBoss)
+        {
+            GameObject panel = GameObject.FindGameObjectWithTag("WinPanel");
+            if (panel != null)
+                win = panel;
+        }
     }
 
     public void TakeDamage(float damage)
@@ -48,6 +63,12 @@ public class EnemyHealth : MonoBehaviour
 
         anim.SetTrigger("Die");
 
+        if (isBoss)
+        {
+            Time.timeScale = 0f;
+            win.SetActive(true);
+        }
         Destroy(gameObject, 5f);
+        
     }
 }
